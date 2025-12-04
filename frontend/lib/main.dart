@@ -20,6 +20,8 @@ class GreenBinGeniusApp extends StatelessWidget {
 
       // This is Comment
 
+      // This is comment
+
       // Start the app with the Splash Screen
       home: const SplashScreen(),
     );
