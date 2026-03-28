@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/screens/impact/impact_screen.dart';
+import 'package:frontend/services/model_service.dart';
 import 'utils/app_theme.dart'; // Imports your custom Blue Theme
 import 'screens/splash_screen.dart'; // Imports your Splash Screen
+// import 'services/model_loader.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  // await ModelService.loadModels();
   runApp(const GreenBinGeniusApp());
 }
 
@@ -19,11 +24,12 @@ class GreenBinGeniusApp extends StatelessWidget {
       theme: AppTheme.lightTheme,
 
       // This is Comment
-
+      // theme: AppTheme.light,
+      home: ImpactScreen(),
       // This is comment
 
       // Start the app with the Splash Screen
-      home: const SplashScreen(),
+      // home: const SplashScreen(),
     );
   }
 }

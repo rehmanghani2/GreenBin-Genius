@@ -1,3 +1,5 @@
+// import org.jetbrains.kotlin.gradle.plugin.KotlinPluginWrapper
+
 allprojects {
     repositories {
         google()
@@ -16,6 +18,29 @@ subprojects {
     project.evaluationDependsOn(":app")
 }
 
+
+
 tasks.register<Delete>("clean") {
     delete(rootProject.layout.buildDirectory)
 }
+
+
+plugins {
+    id("com.android.application") apply false
+    id("com.android.library") apply false
+    id("org.jetbrains.kotlin.android") apply false
+}
+
+buildscript {
+    // ext.kotlin_version = '1.8.22'
+    // repositories {
+    //     google()
+    //     mavenCentral()
+    // }
+    dependencies {
+        // classpath("com.android.tools.build:gradle:8.2.1")
+        // classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
+    }
+}
+
+
