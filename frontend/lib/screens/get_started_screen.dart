@@ -15,12 +15,11 @@ class GetStartedScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const SizedBox(height: 36), // Top spacing
-
             // 1. Top Branding (Added Padding here instead)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: Text(
-                'GREENBIN',
+                'GREENBIN GENIUS',
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                   color: const Color(0xFF2196F3),
                   fontWeight: FontWeight.w900,
@@ -37,7 +36,9 @@ class GetStartedScreen extends StatelessWidget {
               width: double.infinity, // Forces it to take full screen width
               child: Image.asset(
                 'assets/images/intro_illustration.png',
-                fit: BoxFit.fitWidth, // Adjusts height automatically based on width
+                fit:
+                    BoxFit
+                        .fitWidth, // Adjusts height automatically based on width
               ),
             ),
 
@@ -51,7 +52,9 @@ class GetStartedScreen extends StatelessWidget {
                   RichText(
                     textAlign: TextAlign.center,
                     text: TextSpan(
-                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                      style: Theme.of(
+                        context,
+                      ).textTheme.headlineMedium?.copyWith(
                         color: Colors.black,
                         fontWeight: FontWeight.w400,
                       ),
@@ -77,9 +80,9 @@ class GetStartedScreen extends StatelessWidget {
                   Text(
                     'Together we make the world cleaner.',
                     textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Colors.grey,
-                    ),
+                    style: Theme.of(
+                      context,
+                    ).textTheme.bodyMedium?.copyWith(color: Colors.grey),
                   ),
                 ],
               ),
@@ -97,7 +100,9 @@ class GetStartedScreen extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const GoalSelectionScreen()),
+                      MaterialPageRoute(
+                        builder: (context) => const GoalSelectionScreen(),
+                      ),
                     );
                   },
                   style: ElevatedButton.styleFrom(
@@ -130,16 +135,24 @@ class GetStartedScreen extends StatelessWidget {
                 text: TextSpan(
                   style: TextStyle(color: Colors.grey[500], fontSize: 12),
                   children: [
-                    const TextSpan(text: 'by continuing you agree to GreenBin '),
+                    const TextSpan(
+                      text: 'by continuing you agree to GreenBin ',
+                    ),
                     TextSpan(
                       text: 'Terms of Service',
-                      style: const TextStyle(color: Color(0xFFFF4081), fontWeight: FontWeight.w600),
+                      style: const TextStyle(
+                        color: Color(0xFFFF4081),
+                        fontWeight: FontWeight.w600,
+                      ),
                       recognizer: TapGestureRecognizer()..onTap = () {},
                     ),
                     const TextSpan(text: ', GreenBin '),
                     TextSpan(
                       text: 'Privacy Policy',
-                      style: const TextStyle(color: Color(0xFFFF4081), fontWeight: FontWeight.w600),
+                      style: const TextStyle(
+                        color: Color(0xFFFF4081),
+                        fontWeight: FontWeight.w600,
+                      ),
                       recognizer: TapGestureRecognizer()..onTap = () {},
                     ),
                   ],
@@ -160,7 +173,10 @@ class GetStartedScreen extends StatelessWidget {
                     const TextSpan(text: 'Already have an account? '),
                     TextSpan(
                       text: 'Login here',
-                      style: const TextStyle(color: Color(0xFFFF4081), fontWeight: FontWeight.w600),
+                      style: const TextStyle(
+                        color: Color(0xFFFF4081),
+                        fontWeight: FontWeight.w600,
+                      ),
                       recognizer: TapGestureRecognizer()..onTap = () {},
                     ),
                     const TextSpan(text: '.'),

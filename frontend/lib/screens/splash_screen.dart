@@ -29,15 +29,11 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Stack(
         children: [
           // Background shapes
-          Positioned.fill(
-            child: CustomPaint(
-              painter: BackgroundPainter(),
-            ),
-          ),
+          Positioned.fill(child: CustomPaint(painter: BackgroundPainter())),
           // Center Text
           Center(
             child: Text(
-              'GREENBIN',
+              'GREENBIN GENIUS',
               style: Theme.of(context).textTheme.displayMedium?.copyWith(
                 color: Colors.white,
                 fontWeight: FontWeight.w900,
@@ -64,8 +60,10 @@ class BackgroundPainter extends CustomPainter {
     final path1 = Path();
     path1.moveTo(size.width * 0.2, 0);
     path1.quadraticBezierTo(
-        size.width * 0.6, size.height * 0.3,
-        size.width, size.height * 0.45
+      size.width * 0.6,
+      size.height * 0.3,
+      size.width,
+      size.height * 0.45,
     );
     path1.lineTo(size.width, 0);
     path1.close();
@@ -78,8 +76,10 @@ class BackgroundPainter extends CustomPainter {
     final path2 = Path();
     path2.moveTo(0, size.height * 0.6);
     path2.quadraticBezierTo(
-        size.width * 0.4, size.height * 0.7,
-        size.width, size.height
+      size.width * 0.4,
+      size.height * 0.7,
+      size.width,
+      size.height,
     );
     path2.lineTo(0, size.height);
     path2.close();
