@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'goal_selection_screen.dart';
+import 'login_selection_screen.dart'; // Import Login Selection
 
 class GetStartedScreen extends StatelessWidget {
   const GetStartedScreen({super.key});
@@ -10,16 +11,15 @@ class GetStartedScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
-        // Removed the outer Padding so the image can be full width
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(height: 36), // Top spacing
-            // 1. Top Branding (Added Padding here instead)
+            const SizedBox(height: 36),
+
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: Text(
-                'GREENBIN GENIUS',
+                'GREENBIN',
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                   color: const Color(0xFF2196F3),
                   fontWeight: FontWeight.w900,
@@ -30,21 +30,16 @@ class GetStartedScreen extends StatelessWidget {
 
             const Spacer(),
 
-            // 2. Illustration (FULL WIDTH)
-            // No padding here, so it touches the edges of the screen
             SizedBox(
-              width: double.infinity, // Forces it to take full screen width
+              width: double.infinity,
               child: Image.asset(
                 'assets/images/intro_illustration.png',
-                fit:
-                    BoxFit
-                        .fitWidth, // Adjusts height automatically based on width
+                fit: BoxFit.fitWidth,
               ),
             ),
 
             const Spacer(),
 
-            // 3. Main Welcome Text (Added Padding here)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: Column(
@@ -52,9 +47,7 @@ class GetStartedScreen extends StatelessWidget {
                   RichText(
                     textAlign: TextAlign.center,
                     text: TextSpan(
-                      style: Theme.of(
-                        context,
-                      ).textTheme.headlineMedium?.copyWith(
+                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                         color: Colors.black,
                         fontWeight: FontWeight.w400,
                       ),
@@ -80,9 +73,9 @@ class GetStartedScreen extends StatelessWidget {
                   Text(
                     'Together we make the world cleaner.',
                     textAlign: TextAlign.center,
-                    style: Theme.of(
-                      context,
-                    ).textTheme.bodyMedium?.copyWith(color: Colors.grey),
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: Colors.grey,
+                    ),
                   ),
                 ],
               ),
@@ -90,7 +83,6 @@ class GetStartedScreen extends StatelessWidget {
 
             const Spacer(flex: 2),
 
-            // 4. GET STARTED Button (Added Padding here)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: SizedBox(
@@ -100,9 +92,7 @@ class GetStartedScreen extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                        builder: (context) => const GoalSelectionScreen(),
-                      ),
+                      MaterialPageRoute(builder: (context) => const GoalSelectionScreen()),
                     );
                   },
                   style: ElevatedButton.styleFrom(
@@ -127,7 +117,6 @@ class GetStartedScreen extends StatelessWidget {
 
             const SizedBox(height: 24),
 
-            // 5. Footer Links (Added Padding here)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: RichText(
@@ -135,24 +124,16 @@ class GetStartedScreen extends StatelessWidget {
                 text: TextSpan(
                   style: TextStyle(color: Colors.grey[500], fontSize: 12),
                   children: [
-                    const TextSpan(
-                      text: 'by continuing you agree to GreenBin ',
-                    ),
+                    const TextSpan(text: 'by continuing you agree to GreenBin '),
                     TextSpan(
                       text: 'Terms of Service',
-                      style: const TextStyle(
-                        color: Color(0xFFFF4081),
-                        fontWeight: FontWeight.w600,
-                      ),
+                      style: const TextStyle(color: Color(0xFFFF4081), fontWeight: FontWeight.w600),
                       recognizer: TapGestureRecognizer()..onTap = () {},
                     ),
                     const TextSpan(text: ', GreenBin '),
                     TextSpan(
                       text: 'Privacy Policy',
-                      style: const TextStyle(
-                        color: Color(0xFFFF4081),
-                        fontWeight: FontWeight.w600,
-                      ),
+                      style: const TextStyle(color: Color(0xFFFF4081), fontWeight: FontWeight.w600),
                       recognizer: TapGestureRecognizer()..onTap = () {},
                     ),
                   ],
@@ -160,10 +141,8 @@ class GetStartedScreen extends StatelessWidget {
               ),
             ),
 
-            // Increased spacing here to separate the sections
             const SizedBox(height: 48),
 
-            // 6. Login Link (Added Padding here)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: RichText(
@@ -173,11 +152,14 @@ class GetStartedScreen extends StatelessWidget {
                     const TextSpan(text: 'Already have an account? '),
                     TextSpan(
                       text: 'Login here',
-                      style: const TextStyle(
-                        color: Color(0xFFFF4081),
-                        fontWeight: FontWeight.w600,
-                      ),
-                      recognizer: TapGestureRecognizer()..onTap = () {},
+                      style: const TextStyle(color: Color(0xFFFF4081), fontWeight: FontWeight.w600),
+                      recognizer: TapGestureRecognizer()..onTap = () {
+                        // Navigate to Login Selection
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const LoginSelectionScreen()),
+                        );
+                      },
                     ),
                     const TextSpan(text: '.'),
                   ],

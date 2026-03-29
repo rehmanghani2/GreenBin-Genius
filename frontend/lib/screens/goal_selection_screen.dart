@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'impact_stories_screen.dart'; // Import the new screen
+import 'impact_stories_screen.dart'; // Import the next screen in the flow
 
 class GoalSelectionScreen extends StatelessWidget {
   const GoalSelectionScreen({super.key});
