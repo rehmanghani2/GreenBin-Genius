@@ -1,29 +1,5 @@
 import 'package:flutter/material.dart';
-import 'dashboard_screen.dart'; // Import Dashboard
-
-// Placeholder for Login
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
-  @override
-  Widget build(BuildContext context) {
-    // For now, let's auto-navigate to Dashboard or show a button
-    return Scaffold(
-      appBar: AppBar(title: const Text("Login")),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            // REMOVED 'const' here to prevent constructor errors if Dashboard changes
-            Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => DashboardScreen())
-            );
-          },
-          child: const Text("Login (Go to Dashboard)"),
-        ),
-      ),
-    );
-  }
-}
+import 'login_selection_screen.dart'; // Import Login Selection
 
 class StartWithPhotoScreen extends StatelessWidget {
   const StartWithPhotoScreen({super.key});
@@ -71,9 +47,8 @@ class StartWithPhotoScreen extends StatelessWidget {
               Center(
                 child: Column(
                   children: [
-                    // The Image Container
                     Container(
-                      height: 250, // Slightly taller to match screenshot proportions
+                      height: 250,
                       width: 250,
                       padding: const EdgeInsets.all(24),
                       decoration: BoxDecoration(
@@ -81,7 +56,7 @@ class StartWithPhotoScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(20),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.06), // Very subtle shadow
+                            color: Colors.black.withOpacity(0.06),
                             blurRadius: 20,
                             offset: const Offset(0, 8),
                           ),
@@ -89,20 +64,17 @@ class StartWithPhotoScreen extends StatelessWidget {
                       ),
                       child: Stack(
                         children: [
-                          // The Cup Image
                           Center(
                             child: Image.asset(
                               'assets/images/cup_example.png',
                               fit: BoxFit.contain,
                             ),
                           ),
-                          // Decorative Leaf Icons (Top Right)
                           const Positioned(
                             top: 0,
                             right: 0,
                             child: Icon(Icons.eco, color: Color(0xFF4CAF50), size: 24),
                           ),
-                          // Decorative Leaf Icons (Left Center - connected to tree)
                           const Positioned(
                             left: 0,
                             top: 80,
@@ -114,8 +86,6 @@ class StartWithPhotoScreen extends StatelessWidget {
 
                     const SizedBox(height: 20),
 
-                    // The Tree/Tags Structure
-                    // Using a constrained width to keep alignment tight
                     SizedBox(
                       width: 300,
                       child: Column(
@@ -169,10 +139,10 @@ class StartWithPhotoScreen extends StatelessWidget {
                 height: 56,
                 child: ElevatedButton(
                   onPressed: () {
-                    // Navigates to Login, which then goes to Dashboard
+                    // Navigates to Login Selection
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const LoginScreen()),
+                      MaterialPageRoute(builder: (context) => const LoginSelectionScreen()),
                     );
                   },
                   style: ElevatedButton.styleFrom(
@@ -201,37 +171,32 @@ class StartWithPhotoScreen extends StatelessWidget {
     );
   }
 
-  // Helper widget to build the "Tree" connected lines and tags
   Widget _buildTagRow(BuildContext context, String label, String value, {bool isFirst = false, bool isLast = false}) {
     return IntrinsicHeight(
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // The Tree Line Visuals column
           SizedBox(
-            width: 40, // Increased width for the connection line area
+            width: 40,
             child: Column(
               children: [
-                // Upper Line (connects to item above)
                 Expanded(
                   child: Container(
-                    width: 1, // Thin line
+                    width: 1,
                     color: isFirst ? Colors.transparent : Colors.grey[300],
-                    margin: const EdgeInsets.only(left: 20), // Center the line
+                    margin: const EdgeInsets.only(left: 20),
                   ),
                 ),
-                // The Horizontal Connector (The "Branch")
                 Row(
                   children: [
-                    const SizedBox(width: 20), // Spacing to align with vertical line
+                    const SizedBox(width: 20),
                     Container(
-                      width: 12, // Length of the horizontal branch
+                      width: 12,
                       height: 1,
                       color: Colors.grey[300],
                     ),
                   ],
                 ),
-                // Lower Line (connects to item below)
                 Expanded(
                   child: Container(
                     width: 1,
@@ -243,15 +208,13 @@ class StartWithPhotoScreen extends StatelessWidget {
             ),
           ),
 
-          // The Content (Label + Value Button)
           Expanded(
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 6.0),
               child: Row(
                 children: [
-                  // Label (Category, Object, etc.)
                   SizedBox(
-                    width: 80, // Slightly wider to accommodate "Confidence"
+                    width: 80,
                     child: Text(
                       label,
                       style: const TextStyle(
@@ -262,11 +225,10 @@ class StartWithPhotoScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 8),
-                  // Value Button (Drink, Cup, etc.)
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
                     decoration: BoxDecoration(
-                      color: const Color(0xFF2196F3), // Brand Blue
+                      color: const Color(0xFF2196F3),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Text(
