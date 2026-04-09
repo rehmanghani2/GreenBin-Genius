@@ -30,7 +30,7 @@ environment:
 dependencies:
   flutter:
     # sdk: flutter
-    sdk: ">=3.7.0 <4.0.0"
+    sdk: flutter
 
   image_picker: ^1.0.7
 
