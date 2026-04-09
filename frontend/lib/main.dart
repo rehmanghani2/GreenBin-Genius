@@ -25,11 +25,11 @@ class GreenBinGeniusApp extends StatelessWidget {
 
       // This is Comment
       // theme: AppTheme.light,
-      home: ImpactScreen(),
+      // home: ImpactScreen(),
       // This is comment
 
       // Start the app with the Splash Screen
-      // home: const SplashScreen(),
+      home: const SplashScreen(),
     );
   }
 }
