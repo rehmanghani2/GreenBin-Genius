@@ -18,6 +18,11 @@ class GreenBinGeniusApp extends StatelessWidget {
       // Apply the custom theme defined in lib/utils/app_theme.dart
       theme: AppTheme.lightTheme,
 
+      // This is Comment
+      // theme: AppTheme.light,
+      // home: ImpactScreen(),
+      // This is comment
+
       // Start the app with the Splash Screen
       home: const SplashScreen(),
     );
