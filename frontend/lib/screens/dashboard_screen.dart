@@ -1,16 +1,5 @@
 import 'package:flutter/material.dart';
-
-// Placeholder for the Camera Screen
-class CameraScreen extends StatelessWidget {
-  const CameraScreen({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text("Camera")),
-      body: const Center(child: Text("Camera View Opening...")),
-    );
-  }
-}
+import 'camera_scanner_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -50,7 +39,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const CameraScreen()),
+            MaterialPageRoute(builder: (context) => const AiScannerScreen()),
           );
         },
         backgroundColor: const Color(0xFF2196F3), // Brand Blue
