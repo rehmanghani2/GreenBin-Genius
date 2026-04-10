@@ -49,6 +49,6 @@ async def ping():
     """Check connectivity – called at startup."""
     try:
         await get_client().admin.command("ping")
-        print("✅  MongoDB connected successfully.")
+        print("[OK] MongoDB connected successfully.")
     except Exception as exc:
-        print(f"❌  MongoDB connection FAILED: {exc}")
+        print(f"[ERROR] MongoDB connection FAILED: {exc}")
