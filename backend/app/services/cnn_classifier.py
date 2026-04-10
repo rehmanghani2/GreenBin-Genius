@@ -97,8 +97,8 @@ def load_model_on_startup():
 
     if not os.path.exists(model_path):
         logger.warning(
-            f"⚠️  CNN model NOT found at '{model_path}'. "
-            "Running in MOCK mode – upload cnn_model.h5 to activate real inference."
+            f"[WARN] CNN model NOT found at '{model_path}'. "
+            "Running in MOCK mode - upload cnn_model.h5 to activate real inference."
         )
         _model_loaded = False
         return
@@ -107,9 +107,9 @@ def load_model_on_startup():
         from tensorflow.keras.models import load_model  # type: ignore
         _model = load_model(model_path)
         _model_loaded = True
-        logger.info(f"✅  CNN model loaded from '{model_path}'.")
+        logger.info(f"[OK] CNN model loaded from '{model_path}'.")
     except Exception as exc:
-        logger.error(f"❌  Failed to load CNN model: {exc}")
+        logger.error(f"[ERROR] Failed to load CNN model: {exc}")
         _model_loaded = False
 
 
