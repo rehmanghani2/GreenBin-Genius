@@ -26,8 +26,8 @@ def load_model_on_startup():
 
     if not os.path.exists(model_path):
         logger.warning(
-            f"⚠️  YOLO model NOT found at '{model_path}'. "
-            "Object detection disabled – upload yolo_model.pt to activate."
+            f"[WARN] YOLO model NOT found at '{model_path}'. "
+            "Object detection disabled - upload yolo_model.pt to activate."
         )
         _yolo_loaded = False
         return
@@ -36,9 +36,9 @@ def load_model_on_startup():
         from ultralytics import YOLO  # type: ignore
         _yolo_model = YOLO(model_path)
         _yolo_loaded = True
-        logger.info(f"✅  YOLO model loaded from '{model_path}'.")
+        logger.info(f"[OK] YOLO model loaded from '{model_path}'.")
     except Exception as exc:
-        logger.error(f"❌  Failed to load YOLO model: {exc}")
+        logger.error(f"[ERROR] Failed to load YOLO model: {exc}")
         _yolo_loaded = False
 
 

@@ -31,7 +31,7 @@ logger = logging.getLogger("greenbin")
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Load models and verify DB connection when the server starts."""
-    logger.info("🚀  Starting GreenBin Genius API...")
+    logger.info("[START] Starting GreenBin Genius API...")
 
     # Verify MongoDB
     await ping_db()
@@ -40,9 +40,9 @@ async def lifespan(app: FastAPI):
     cnn_classifier.load_model_on_startup()
     yolo_detector.load_model_on_startup()
 
-    logger.info("✅  GreenBin Genius API is ready.")
+    logger.info("[OK] GreenBin Genius API is ready.")
     yield
-    logger.info("🛑  Shutting down GreenBin Genius API.")
+    logger.info("[STOP] Shutting down GreenBin Genius API.")
 
 
 # ── FastAPI App ──────────────────────────────────────────────
