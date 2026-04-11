@@ -103,24 +103,30 @@ class _AiScannerScreenState extends State<AiScannerScreen> with SingleTickerProv
 
           // 3. UI Layer
           SafeArea(
-            child: Column(
-              children: [
-                const SizedBox(height: 20),
-                // Top Bar
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(40),
-                    child: BackdropFilter(
-                      filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                      child: Container(
-                        height: 70,
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.08),
-                          borderRadius: BorderRadius.circular(40),
-                          border: Border.all(color: Colors.white.withOpacity(0.1)),
-                        ),
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                // Dynamically calculate the scanner box height.
+                // J5 usable height is ~640dp; larger phones get ~350dp.
+                final scannerHeight = (constraints.maxHeight * 0.40).clamp(200.0, 350.0);
+
+                return Column(
+                  children: [
+                    const SizedBox(height: 12),
+                    // Top Bar
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(40),
+                        child: BackdropFilter(
+                          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                          child: Container(
+                            height: 60,  // reduced from 70
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            decoration: BoxDecoration(
+                              color: Colors.white.withOpacity(0.08),
+                              borderRadius: BorderRadius.circular(40),
+                              border: Border.all(color: Colors.white.withOpacity(0.1)),
+                            ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -161,18 +167,18 @@ class _AiScannerScreenState extends State<AiScannerScreen> with SingleTickerProv
                   ),
                 ),
 
-                const Spacer(flex: 1),
+                    const Spacer(flex: 1),
 
-                // Center Scanner Area
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 32.0),
-                  child: Stack(
-                    alignment: Alignment.center,
-                    clipBehavior: Clip.none,
-                    children: [
-                      // Scanner Frame
-                      Container(
-                        height: 350,
+                    // Center Scanner Area
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                      child: Stack(
+                        alignment: Alignment.center,
+                        clipBehavior: Clip.none,
+                        children: [
+                          // Scanner Frame – height adapts to screen
+                          Container(
+                            height: scannerHeight,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(24),
                           border: Border.all(
@@ -306,11 +312,11 @@ class _AiScannerScreenState extends State<AiScannerScreen> with SingleTickerProv
                           ],
                         ),
                       ),
-                    ],
-                  ),
-                ),
+                        ],
+                      ),
+                    ),
 
-                const Spacer(flex: 1),
+                    const Spacer(flex: 1),
 
                 // Bottom Readout Card
                 Padding(
@@ -440,55 +446,58 @@ class _AiScannerScreenState extends State<AiScannerScreen> with SingleTickerProv
                       ),
                     ),
                   ),
-                ),
-
-                const SizedBox(height: 30),
-
-                // Shutter Button
-                GestureDetector(
-                  onTap: _captureImage,
-                  child: AnimatedBuilder(
-                    animation: _pulseAnimation,
-                    builder: (context, child) {
-                      return Container(
-                        padding: const EdgeInsets.all(4),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(color: const Color(0xFF2196F3), width: 3),
-                          boxShadow: [
-                            BoxShadow(
-                              color: const Color(0xFF2196F3).withOpacity(_pulseAnimation.value * 0.5),
-                              blurRadius: 20,
-                              spreadRadius: 5,
-                            )
-                          ],
-                        ),
-                        child: Container(
-                          width: 60,
-                          height: 60,
-                          decoration: const BoxDecoration(
-                            color: Color(0xFF2196F3),
-                            shape: BoxShape.circle,
-                          ),
-                          child: const Icon(
-                            Icons.camera,
-                            color: Colors.black87,
-                            size: 32,
-                          ),
-                        ),
-                      );
-                    },
+                    ),
                   ),
-                ),
 
-                const SizedBox(height: 30),
-              ],
-            ),
+                  const SizedBox(height: 16),  // tighter gap
+
+                  // Shutter Button
+                  GestureDetector(
+                    onTap: _captureImage,
+                    child: AnimatedBuilder(
+                      animation: _pulseAnimation,
+                      builder: (context, child) {
+                        return Container(
+                          padding: const EdgeInsets.all(4),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(color: const Color(0xFF2196F3), width: 3),
+                            boxShadow: [
+                              BoxShadow(
+                                color: const Color(0xFF2196F3).withOpacity(_pulseAnimation.value * 0.5),
+                                blurRadius: 20,
+                                spreadRadius: 5,
+                              )
+                            ],
+                          ),
+                          child: Container(
+                            width: 56,    // slightly smaller for J5
+                            height: 56,
+                            decoration: const BoxDecoration(
+                              color: Color(0xFF2196F3),
+                              shape: BoxShape.circle,
+                            ),
+                            child: const Icon(
+                              Icons.camera,
+                              color: Colors.black87,
+                              size: 28,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+
+                  const SizedBox(height: 16),  // tighter gap
+                ],
+              );
+            },
           ),
-        ],
-      ),
-    );
-  }
+        ),
+      ],
+    ),
+  );
+}
 
   Widget _buildSideButton(IconData icon, String label) {
     return Column(

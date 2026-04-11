@@ -1,27 +1,31 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import '../utils/responsive.dart';
 import 'goal_selection_screen.dart';
-import 'login_selection_screen.dart'; // Import Login Selection
+import 'login_selection_screen.dart';
 
 class GetStartedScreen extends StatelessWidget {
   const GetStartedScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final sp = R.sp(context);
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(height: 36),
+            SizedBox(height: sp * 2),
 
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              padding: R.pagePadding(context),
               child: Text(
                 'GREENBIN',
-                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                style: TextStyle(
                   color: const Color(0xFF2196F3),
+                  fontSize: R.fs(context, 20),
                   fontWeight: FontWeight.w900,
                   letterSpacing: 1.2,
                 ),
@@ -35,20 +39,22 @@ class GetStartedScreen extends StatelessWidget {
               child: Image.asset(
                 'assets/images/intro_illustration.png',
                 fit: BoxFit.fitWidth,
+                height: R.h(context, 32),
               ),
             ),
 
             const Spacer(),
 
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              padding: R.pagePadding(context),
               child: Column(
                 children: [
                   RichText(
                     textAlign: TextAlign.center,
                     text: TextSpan(
-                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                      style: TextStyle(
                         color: Colors.black,
+                        fontSize: R.fs(context, 26),
                         fontWeight: FontWeight.w400,
                       ),
                       children: const [
@@ -60,21 +66,23 @@ class GetStartedScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 12),
+                  SizedBox(height: sp * 0.75),
                   Text(
-                    'Let’s Begin Your Eco Journey',
+                    'Let\'s Begin Your Eco Journey',
                     textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    style: TextStyle(
                       color: Colors.black87,
+                      fontSize: R.fs(context, 16),
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  const SizedBox(height: 8),
+                  SizedBox(height: sp * 0.5),
                   Text(
                     'Together we make the world cleaner.',
                     textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    style: TextStyle(
                       color: Colors.grey,
+                      fontSize: R.fs(context, 14),
                     ),
                   ),
                 ],
@@ -84,29 +92,27 @@ class GetStartedScreen extends StatelessWidget {
             const Spacer(flex: 2),
 
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              padding: R.pagePadding(context),
               child: SizedBox(
                 width: double.infinity,
-                height: 56,
+                height: R.buttonHeight(context),
                 child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const GoalSelectionScreen()),
-                    );
-                  },
+                  onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const GoalSelectionScreen()),
+                  ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black,
                     foregroundColor: Colors.white,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
+                        borderRadius: BorderRadius.circular(30)),
                     elevation: 0,
                   ),
-                  child: const Text(
+                  child: Text(
                     'GET STARTED',
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: R.fs(context, 15),
                       fontWeight: FontWeight.bold,
                       letterSpacing: 1.0,
                     ),
@@ -115,25 +121,27 @@ class GetStartedScreen extends StatelessWidget {
               ),
             ),
 
-            const SizedBox(height: 24),
+            SizedBox(height: sp * 1.5),
 
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              padding: R.pagePadding(context),
               child: RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(
-                  style: TextStyle(color: Colors.grey[500], fontSize: 12),
+                  style: TextStyle(color: Colors.grey[500], fontSize: R.fs(context, 11)),
                   children: [
                     const TextSpan(text: 'by continuing you agree to GreenBin '),
                     TextSpan(
                       text: 'Terms of Service',
-                      style: const TextStyle(color: Color(0xFFFF4081), fontWeight: FontWeight.w600),
+                      style: const TextStyle(
+                          color: Color(0xFFFF4081), fontWeight: FontWeight.w600),
                       recognizer: TapGestureRecognizer()..onTap = () {},
                     ),
                     const TextSpan(text: ', GreenBin '),
                     TextSpan(
                       text: 'Privacy Policy',
-                      style: const TextStyle(color: Color(0xFFFF4081), fontWeight: FontWeight.w600),
+                      style: const TextStyle(
+                          color: Color(0xFFFF4081), fontWeight: FontWeight.w600),
                       recognizer: TapGestureRecognizer()..onTap = () {},
                     ),
                   ],
@@ -141,32 +149,33 @@ class GetStartedScreen extends StatelessWidget {
               ),
             ),
 
-            const SizedBox(height: 48),
+            SizedBox(height: sp * 2),
 
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              padding: R.pagePadding(context),
               child: RichText(
                 text: TextSpan(
-                  style: TextStyle(color: Colors.grey[600], fontSize: 14),
+                  style: TextStyle(color: Colors.grey[600], fontSize: R.fs(context, 13)),
                   children: [
                     const TextSpan(text: 'Already have an account? '),
                     TextSpan(
                       text: 'Login here',
-                      style: const TextStyle(color: Color(0xFFFF4081), fontWeight: FontWeight.w600),
-                      recognizer: TapGestureRecognizer()..onTap = () {
-                        // Navigate to Login Selection
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const LoginSelectionScreen()),
-                        );
-                      },
+                      style: const TextStyle(
+                          color: Color(0xFFFF4081), fontWeight: FontWeight.w600),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const LoginSelectionScreen()),
+                            ),
                     ),
                     const TextSpan(text: '.'),
                   ],
                 ),
               ),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: sp),
           ],
         ),
       ),
