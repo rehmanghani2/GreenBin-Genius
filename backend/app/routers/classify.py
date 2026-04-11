@@ -16,6 +16,31 @@ router = APIRouter(prefix="/api", tags=["Classification"])
 
 ALLOWED_TYPES = {"image/jpeg", "image/png", "image/webp", "image/jpg"}
 
+# Extensions that map to valid image MIME types (fallback for octet-stream)
+_EXT_TO_MIME = {
+    "jpg":  "image/jpeg",
+    "jpeg": "image/jpeg",
+    "png":  "image/png",
+    "webp": "image/webp",
+}
+
+
+def _resolve_content_type(file: UploadFile) -> str:
+    """
+    Return a resolved MIME type.
+    Android camera sometimes sends 'application/octet-stream'; in that case
+    we fall back to the filename extension (e.g. 'photo.jpeg' → 'image/jpeg').
+    """
+    ct = (file.content_type or "").lower()
+    if ct in ALLOWED_TYPES:
+        return ct
+    # Fallback: detect from filename extension
+    if file.filename:
+        ext = file.filename.rsplit(".", 1)[-1].lower()
+        if ext in _EXT_TO_MIME:
+            return _EXT_TO_MIME[ext]
+    return ct  # return as-is so the error message is accurate
+
 
 @router.post(
     "/classify",
@@ -31,12 +56,14 @@ async def classify_image(
     file: UploadFile = File(..., description="Waste image (JPEG / PNG)"),
     current_user: dict = Depends(get_current_user),
 ):
-    # ── Validate file type ────────────────────────────────────
-    if file.content_type not in ALLOWED_TYPES:
+    # ── Validate file type (with octet-stream fallback) ───────
+    resolved_type = _resolve_content_type(file)
+    if resolved_type not in ALLOWED_TYPES:
         raise HTTPException(
             status_code=status.HTTP_415_UNSUPPORTED_MEDIA_TYPE,
             detail=f"Unsupported file type '{file.content_type}'. Use JPEG or PNG.",
         )
+
 
     image_bytes = await file.read()
 
