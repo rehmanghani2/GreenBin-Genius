@@ -96,10 +96,10 @@ class _ClassificationResultScreenState
               if (_isAnalyzing) ...[
                 const CircularProgressIndicator(color: Color(0xFF2196F3)),
                 const SizedBox(height: 16),
-                const Text(
+                Text(
                   "Analyzing image with GreenBin Genius AI...",
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 15, color: Colors.grey),
+                  style: TextStyle(fontSize: R.fs(context, 15), color: Colors.grey),
                 ),
               ]
 
@@ -180,7 +180,7 @@ class _ClassificationResultScreenState
                   ),
                 ),
 
-                const SizedBox(height: 24),
+                SizedBox(height: sp * 1.5),
 
                 // Classification tags
                 _buildTagRow('Category', _result!.category, isFirst: true),
@@ -192,7 +192,7 @@ class _ClassificationResultScreenState
                   isLast: true,
                 ),
 
-                const SizedBox(height: 28),
+                SizedBox(height: sp * 1.75),
 
                 // Disposal tip card
                 Container(
@@ -242,7 +242,7 @@ class _ClassificationResultScreenState
                   ),
                 ),
 
-                const SizedBox(height: 32),
+                SizedBox(height: sp * 2),
 
                 // Action buttons
                 SizedBox(
@@ -253,10 +253,10 @@ class _ClassificationResultScreenState
                       // TODO: Navigate to Bin Locator with result category
                     },
                     icon: const Icon(Icons.location_on),
-                    label: const Text(
+                    label: Text(
                       'FIND NEAREST BIN',
                       style: TextStyle(
-                          fontSize: 15,
+                          fontSize: R.fs(context, 14),
                           fontWeight: FontWeight.bold,
                           letterSpacing: 0.8),
                     ),
@@ -269,10 +269,10 @@ class _ClassificationResultScreenState
                     ),
                   ),
                 ),
-                const SizedBox(height: 14),
+                SizedBox(height: sp * 0.9),
                 SizedBox(
                   width: double.infinity,
-                  height: 56,
+                  height: R.buttonHeight(context),
                   child: OutlinedButton(
                     onPressed: () => Navigator.pop(context),
                     style: OutlinedButton.styleFrom(
@@ -281,17 +281,16 @@ class _ClassificationResultScreenState
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30)),
                     ),
-                    child: const Text(
+                    child: Text(
                       'SCAN ANOTHER ITEM',
                       style: TextStyle(
-                          fontSize: 15,
+                          fontSize: R.fs(context, 14),
                           fontWeight: FontWeight.bold,
                           letterSpacing: 0.8),
                     ),
                   ),
                 ),
-
-                const SizedBox(height: 24),
+                SizedBox(height: sp * 1.5),
               ],
             ],
           ),
