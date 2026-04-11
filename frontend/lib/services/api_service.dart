@@ -8,6 +8,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';  // for MediaType
 
 // ─────────────────────────────────────────────────────────────
 // Base URL – Hugging Face Space (production)
@@ -119,17 +120,27 @@ class ApiService {
   // ═══════════════════════════════════════════════════════════
 
   /// Send an image file to the backend for AI classification.
-  /// Returns a [ClassificationResult] data map.
+  /// Automatically detects JPEG / PNG and sets the correct MIME type.
   Future<ClassificationResult> classifyImage(File imageFile) async {
     final token = await getToken();
     if (token == null) throw Exception('Not authenticated. Please log in first.');
+
+    // Detect MIME type from file extension.
+    // Android camera always saves as .jpg; gallery picks may be .png.
+    final ext = imageFile.path.split('.').last.toLowerCase();
+    final mimeType = ext == 'png' ? 'png' : 'jpeg';
 
     final request = http.MultipartRequest(
       'POST',
       Uri.parse('$baseUrl/api/classify'),
     )
       ..headers['Authorization'] = 'Bearer $token'
-      ..files.add(await http.MultipartFile.fromPath('file', imageFile.path));
+      ..files.add(await http.MultipartFile.fromPath(
+        'file',
+        imageFile.path,
+        contentType: MediaType('image', mimeType), // ← explicit MIME type
+        filename: 'photo.$mimeType',               // ← gives backend a clean name
+      ));
 
     final streamed = await request.send();
     final res = await http.Response.fromStream(streamed);
