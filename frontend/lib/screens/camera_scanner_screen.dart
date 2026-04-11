@@ -446,10 +446,9 @@ class _AiScannerScreenState extends State<AiScannerScreen> with SingleTickerProv
                       ),
                     ),
                   ),
-                    ),
-                  ),
+                ),
 
-                  const SizedBox(height: 16),  // tighter gap
+                const SizedBox(height: 16), // tighter gap
 
                   // Shutter Button
                   GestureDetector(
