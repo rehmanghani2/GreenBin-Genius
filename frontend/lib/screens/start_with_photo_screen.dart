@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import '../utils/responsive.dart';
-import 'login_selection_screen.dart';
+import 'register_screen.dart';
 
 class StartWithPhotoScreen extends StatelessWidget {
   const StartWithPhotoScreen({super.key});
@@ -147,7 +147,7 @@ class StartWithPhotoScreen extends StatelessWidget {
                   onPressed: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const LoginSelectionScreen()),
+                        builder: (context) => const RegisterScreen()),
                   ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black,
