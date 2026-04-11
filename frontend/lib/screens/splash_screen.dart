@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'get_started_screen.dart'; // Import to allow navigation
+import '../utils/responsive.dart';
+import 'get_started_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -13,7 +14,6 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    // 1. Wait for 3 seconds, then go to Get Started Screen
     Timer(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
         context,
@@ -25,21 +25,15 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // 2. The Blue Wavy Background
       body: Stack(
         children: [
-          // Background shapes
-          Positioned.fill(
-            child: CustomPaint(
-              painter: BackgroundPainter(),
-            ),
-          ),
-          // Center Text
+          Positioned.fill(child: CustomPaint(painter: BackgroundPainter())),
           Center(
             child: Text(
               'GREENBIN',
-              style: Theme.of(context).textTheme.displayMedium?.copyWith(
+              style: TextStyle(
                 color: Colors.white,
+                fontSize: R.fs(context, 42),
                 fontWeight: FontWeight.w900,
                 letterSpacing: 1.5,
               ),
@@ -51,39 +45,27 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 }
 
-// 3. Custom Painter to draw the Blue Waves
 class BackgroundPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    // Base Blue Color
-    final paint = Paint();
-    paint.color = const Color(0xFF2196F3); // Material Blue 500
+    final paint = Paint()..color = const Color(0xFF2196F3);
     canvas.drawRect(Rect.fromLTWH(0, 0, size.width, size.height), paint);
 
-    // Top Right Light Curve
-    final path1 = Path();
-    path1.moveTo(size.width * 0.2, 0);
-    path1.quadraticBezierTo(
-        size.width * 0.6, size.height * 0.3,
-        size.width, size.height * 0.45
-    );
-    path1.lineTo(size.width, 0);
-    path1.close();
-
-    // Semi-transparent white for the overlap effect
+    final path1 = Path()
+      ..moveTo(size.width * 0.2, 0)
+      ..quadraticBezierTo(
+          size.width * 0.6, size.height * 0.3, size.width, size.height * 0.45)
+      ..lineTo(size.width, 0)
+      ..close();
     paint.color = Colors.white.withOpacity(0.1);
     canvas.drawPath(path1, paint);
 
-    // Bottom Left Light Curve
-    final path2 = Path();
-    path2.moveTo(0, size.height * 0.6);
-    path2.quadraticBezierTo(
-        size.width * 0.4, size.height * 0.7,
-        size.width, size.height
-    );
-    path2.lineTo(0, size.height);
-    path2.close();
-
+    final path2 = Path()
+      ..moveTo(0, size.height * 0.6)
+      ..quadraticBezierTo(
+          size.width * 0.4, size.height * 0.7, size.width, size.height)
+      ..lineTo(0, size.height)
+      ..close();
     canvas.drawPath(path2, paint);
   }
 

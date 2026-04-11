@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'dashboard_screen.dart'; // Navigate to Dashboard
+import '../utils/responsive.dart';
+import 'dashboard_screen.dart';
 
 class LoginFormScreen extends StatefulWidget {
   const LoginFormScreen({super.key});
@@ -15,6 +16,8 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final sp = R.sp(context);
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -24,12 +27,12 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
           icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () => Navigator.pop(context),
         ),
-        title: const Text(
+        title: Text(
           'LOG IN',
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.w900,
-            fontSize: 18,
+            fontSize: R.fs(context, 17),
             letterSpacing: 1.0,
           ),
         ),
@@ -37,19 +40,21 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
       ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          padding: R.pagePadding(context),
           child: Column(
             children: [
-              const SizedBox(height: 30),
+              SizedBox(height: sp * 2),
 
-              // Email Address Field (Taller)
+              // Email Field
               TextField(
                 controller: _emailController,
+                keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
-                  labelText: "Email Address",
-                  labelStyle: TextStyle(color: Colors.grey[600], fontSize: 14),
-                  // Increased vertical padding to make the box taller
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+                  labelText: 'Email Address',
+                  labelStyle: TextStyle(
+                      color: Colors.grey[600], fontSize: R.fs(context, 14)),
+                  contentPadding: EdgeInsets.symmetric(
+                      horizontal: 20, vertical: R.isSmall(context) ? 16 : 22),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                     borderSide: BorderSide(color: Colors.grey.shade300),
@@ -61,17 +66,18 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
                 ),
               ),
 
-              const SizedBox(height: 24),
+              SizedBox(height: sp * 1.5),
 
-              // Password Field (Taller)
+              // Password Field
               TextField(
                 controller: _passwordController,
                 obscureText: _obscurePassword,
                 decoration: InputDecoration(
-                  labelText: "Password",
-                  labelStyle: TextStyle(color: Colors.grey[600], fontSize: 14),
-                  // Increased vertical padding to make the box taller
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+                  labelText: 'Password',
+                  labelStyle: TextStyle(
+                      color: Colors.grey[600], fontSize: R.fs(context, 14)),
+                  contentPadding: EdgeInsets.symmetric(
+                      horizontal: 20, vertical: R.isSmall(context) ? 16 : 22),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                     borderSide: BorderSide(color: Colors.grey.shade300),
@@ -82,32 +88,30 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
                   ),
                   suffixIcon: IconButton(
                     icon: Icon(
-                      Icons.remove_red_eye,
+                      _obscurePassword
+                          ? Icons.visibility_off
+                          : Icons.visibility,
                       color: const Color(0xFF2196F3),
-                      size: 20,
+                      size: R.icon(context, 20),
                     ),
-                    onPressed: () {
-                      setState(() {
-                        _obscurePassword = !_obscurePassword;
-                      });
-                    },
+                    onPressed: () =>
+                        setState(() => _obscurePassword = !_obscurePassword),
                   ),
                 ),
               ),
 
-              const SizedBox(height: 12),
+              SizedBox(height: sp * 0.75),
 
-              // Forgot Password Link
               Align(
                 alignment: Alignment.centerRight,
                 child: TextButton(
                   onPressed: () {},
-                  child: const Text(
-                    "Forgot your Password?",
+                  child: Text(
+                    'Forgot your Password?',
                     style: TextStyle(
-                      color: Color(0xFFFF4081), // Pink/Red color
+                      color: const Color(0xFFFF4081),
                       fontWeight: FontWeight.w600,
-                      fontSize: 14,
+                      fontSize: R.fs(context, 13),
                     ),
                   ),
                 ),
@@ -115,39 +119,29 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
 
               const Spacer(),
 
-              // LOG IN Button (Black)
               SizedBox(
                 width: double.infinity,
-                height: 56,
+                height: R.buttonHeight(context),
                 child: ElevatedButton(
                   onPressed: () {
-                    // Navigate to Dashboard
                     Navigator.pushAndRemoveUntil(
                       context,
-                      MaterialPageRoute(builder: (context) => const DashboardScreen()),
-                          (route) => false,
+                      MaterialPageRoute(
+                          builder: (context) => const DashboardScreen()),
+                      (route) => false,
                     );
                   },
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.resolveWith<Color>((states) {
-                      // Ensure it stays black or goes slightly lighter on hover
-                      if (states.contains(MaterialState.hovered)) {
-                        return Colors.black87;
-                      }
-                      return Colors.black;
-                    }),
-                    foregroundColor: MaterialStateProperty.all(Colors.white),
-                    elevation: MaterialStateProperty.all(0),
-                    shape: MaterialStateProperty.all(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                    ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.black,
+                    foregroundColor: Colors.white,
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30)),
                   ),
-                  child: const Text(
+                  child: Text(
                     'LOG IN',
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: R.fs(context, 14),
                       fontWeight: FontWeight.bold,
                       letterSpacing: 1.0,
                     ),
@@ -155,7 +149,7 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
                 ),
               ),
 
-              const SizedBox(height: 30),
+              SizedBox(height: sp * 2),
             ],
           ),
         ),
