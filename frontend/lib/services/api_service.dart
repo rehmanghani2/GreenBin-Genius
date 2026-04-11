@@ -10,11 +10,9 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 
 // ─────────────────────────────────────────────────────────────
-// Base URL – change to your Hugging Face Space URL after deploy.
-// During local dev: use http://10.0.2.2:8000 (Android emulator)
-//                   or http://<YOUR_MACHINE_IP>:8000 (real device)
+// Base URL – Hugging Face Space (production)
 // ─────────────────────────────────────────────────────────────
-const String _kBaseUrl = 'http://10.0.2.2:8000'; // local dev default
+const String _kBaseUrl = 'https://rg2323-greenbin-backend.hf.space';
 
 class ApiService {
   ApiService._();
