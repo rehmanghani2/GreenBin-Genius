@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-import 'login_form_screen.dart'; // Navigate to the form
+import '../utils/responsive.dart';
+import 'login_form_screen.dart';
 
 class LoginSelectionScreen extends StatelessWidget {
   const LoginSelectionScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final sp = R.sp(context);
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -15,64 +18,59 @@ class LoginSelectionScreen extends StatelessWidget {
           icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () => Navigator.pop(context),
         ),
-        // Title "GREENBIN" in Grey to match "LITTERATI" watermark style
         title: Text(
           'GREENBIN',
           style: TextStyle(
             color: Colors.grey[400],
             fontWeight: FontWeight.w900,
             letterSpacing: 2.0,
-            fontSize: 24,
+            fontSize: R.fs(context, 22),
           ),
         ),
         centerTitle: true,
       ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          padding: R.pagePadding(context),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const SizedBox(height: 60),
+              SizedBox(height: sp * 3),
 
-              // Main Instruction Text
-              const Text(
+              Text(
                 'Login to your existing GreenBin\naccount',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
-                  fontSize: 18,
+                  fontSize: R.fs(context, 17),
                   height: 1.4,
                 ),
               ),
 
-              const SizedBox(height: 40),
+              SizedBox(height: sp * 2.5),
 
-              // Login With Email Button (Light Blue)
               SizedBox(
                 width: double.infinity,
-                height: 56,
+                height: R.buttonHeight(context),
                 child: ElevatedButton.icon(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const LoginFormScreen()),
-                    );
-                  },
+                  onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const LoginFormScreen()),
+                  ),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFE3F2FD), // Light Blue Background
-                    foregroundColor: const Color(0xFF2196F3), // Blue Text & Icon
+                    backgroundColor: const Color(0xFFE3F2FD),
+                    foregroundColor: const Color(0xFF2196F3),
                     elevation: 0,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
+                        borderRadius: BorderRadius.circular(30)),
                   ),
-                  icon: const Icon(Icons.mail_outline, size: 22),
-                  label: const Text(
+                  icon: Icon(Icons.mail_outline, size: R.icon(context, 22)),
+                  label: Text(
                     'LOGIN WITH EMAIL',
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: R.fs(context, 14),
                       fontWeight: FontWeight.bold,
                       letterSpacing: 0.5,
                     ),
@@ -82,18 +80,17 @@ class LoginSelectionScreen extends StatelessWidget {
 
               const Spacer(),
 
-              // Image Placeholder at the bottom
-              Container(
-                height: 200,
+              SizedBox(
+                height: R.h(context, 22),
                 width: double.infinity,
-                alignment: Alignment.bottomCenter,
                 child: Image.asset(
-                  'assets/images/intro_illustration.png', // Using existing asset as placeholder
+                  'assets/images/intro_illustration.png',
                   fit: BoxFit.contain,
+                  alignment: Alignment.bottomCenter,
                 ),
               ),
 
-              const SizedBox(height: 20),
+              SizedBox(height: sp),
             ],
           ),
         ),
