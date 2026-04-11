@@ -3,3 +3,4 @@ frontend/android/java_pid13804.hprof
 *.class
 build/
 .gradle/
+*.hprof
