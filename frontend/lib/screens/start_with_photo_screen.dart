@@ -1,11 +1,15 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'login_selection_screen.dart'; // Import Login Selection
+import '../utils/responsive.dart';
+import 'login_selection_screen.dart';
 
 class StartWithPhotoScreen extends StatelessWidget {
   const StartWithPhotoScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final sp = R.sp(context);
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -18,17 +22,17 @@ class StartWithPhotoScreen extends StatelessWidget {
       ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          padding: R.pagePadding(context),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 10),
+              SizedBox(height: sp * 0.5),
 
-              // 1. Title
               RichText(
                 text: TextSpan(
-                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                  style: TextStyle(
                     color: Colors.black,
+                    fontSize: R.fs(context, 26),
                     fontWeight: FontWeight.w400,
                   ),
                   children: const [
@@ -43,14 +47,13 @@ class StartWithPhotoScreen extends StatelessWidget {
 
               const Spacer(flex: 1),
 
-              // 2. The Visualization Card
               Center(
                 child: Column(
                   children: [
                     Container(
-                      height: 250,
-                      width: 250,
-                      padding: const EdgeInsets.all(24),
+                      height: R.h(context, 28),
+                      width: R.h(context, 28),
+                      padding: EdgeInsets.all(sp * 1.5),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(20),
@@ -73,21 +76,23 @@ class StartWithPhotoScreen extends StatelessWidget {
                           const Positioned(
                             top: 0,
                             right: 0,
-                            child: Icon(Icons.eco, color: Color(0xFF4CAF50), size: 24),
+                            child: Icon(Icons.eco,
+                                color: Color(0xFF4CAF50), size: 24),
                           ),
                           const Positioned(
                             left: 0,
-                            top: 80,
-                            child: Icon(Icons.eco, color: Color(0xFF2E7D32), size: 24),
+                            top: 60,
+                            child: Icon(Icons.eco,
+                                color: Color(0xFF2E7D32), size: 24),
                           ),
                         ],
                       ),
                     ),
 
-                    const SizedBox(height: 20),
+                    SizedBox(height: sp * 1.25),
 
                     SizedBox(
-                      width: 300,
+                      width: R.w(context, 75),
                       child: Column(
                         children: [
                           _buildTagRow(context, 'Category', 'Drink', isFirst: true),
@@ -103,14 +108,13 @@ class StartWithPhotoScreen extends StatelessWidget {
 
               const Spacer(flex: 2),
 
-              // 3. Instruction Text
               RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(
-                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                  style: TextStyle(
                     color: Colors.black,
+                    fontSize: R.fs(context, 22),
                     fontWeight: FontWeight.w300,
-                    fontSize: 24,
                   ),
                   children: [
                     const TextSpan(text: 'Find '),
@@ -123,47 +127,46 @@ class StartWithPhotoScreen extends StatelessWidget {
                           color: Color(0xFF2196F3),
                           shape: BoxShape.circle,
                         ),
-                        child: const Icon(Icons.camera_alt, color: Colors.white, size: 20),
+                        child: Icon(Icons.camera_alt,
+                            color: Colors.white,
+                            size: R.icon(context, 18)),
                       ),
                     ),
-                    const TextSpan(text: ' on your screen\nto get started'),
+                    const TextSpan(
+                        text: ' on your screen\nto get started'),
                   ],
                 ),
               ),
 
               const Spacer(flex: 1),
 
-              // 4. Start Button
               SizedBox(
                 width: double.infinity,
-                height: 56,
+                height: R.buttonHeight(context),
                 child: ElevatedButton(
-                  onPressed: () {
-                    // Navigates to Login Selection
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const LoginSelectionScreen()),
-                    );
-                  },
+                  onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const LoginSelectionScreen()),
+                  ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black,
                     foregroundColor: Colors.white,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
+                        borderRadius: BorderRadius.circular(30)),
                     elevation: 0,
                   ),
-                  child: const Text(
+                  child: Text(
                     'START',
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: R.fs(context, 15),
                       fontWeight: FontWeight.bold,
                       letterSpacing: 1.0,
                     ),
                   ),
                 ),
               ),
-              const SizedBox(height: 36),
+              SizedBox(height: sp * 2),
             ],
           ),
         ),
@@ -171,7 +174,9 @@ class StartWithPhotoScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildTagRow(BuildContext context, String label, String value, {bool isFirst = false, bool isLast = false}) {
+  Widget _buildTagRow(BuildContext context, String label, String value,
+      {bool isFirst = false, bool isLast = false}) {
+    final sp = R.sp(context);
     return IntrinsicHeight(
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -187,16 +192,10 @@ class StartWithPhotoScreen extends StatelessWidget {
                     margin: const EdgeInsets.only(left: 20),
                   ),
                 ),
-                Row(
-                  children: [
-                    const SizedBox(width: 20),
-                    Container(
-                      width: 12,
-                      height: 1,
-                      color: Colors.grey[300],
-                    ),
-                  ],
-                ),
+                Row(children: [
+                  const SizedBox(width: 20),
+                  Container(width: 12, height: 1, color: Colors.grey[300]),
+                ]),
                 Expanded(
                   child: Container(
                     width: 1,
@@ -207,36 +206,36 @@ class StartWithPhotoScreen extends StatelessWidget {
               ],
             ),
           ),
-
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 6.0),
+              padding: EdgeInsets.symmetric(vertical: sp * 0.4),
               child: Row(
                 children: [
                   SizedBox(
                     width: 80,
                     child: Text(
                       label,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 14,
+                        fontSize: R.fs(context, 13),
                         color: Colors.black87,
                       ),
                     ),
                   ),
                   const SizedBox(width: 8),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: sp, vertical: sp * 0.35),
                     decoration: BoxDecoration(
                       color: const Color(0xFF2196F3),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Text(
                       value,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w600,
-                        fontSize: 13,
+                        fontSize: R.fs(context, 12),
                       ),
                     ),
                   ),

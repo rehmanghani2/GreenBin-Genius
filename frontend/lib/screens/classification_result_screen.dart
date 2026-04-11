@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import '../utils/responsive.dart';
 import '../services/api_service.dart';
 
 class ClassificationResultScreen extends StatefulWidget {
@@ -45,14 +46,18 @@ class _ClassificationResultScreenState
 
   @override
   Widget build(BuildContext context) {
+    final sp = R.sp(context);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        title: const Text(
+        title: Text(
           "Classification Result",
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+              fontSize: R.fs(context, 17)),
         ),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
@@ -61,13 +66,14 @@ class _ClassificationResultScreenState
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(24.0),
+          padding: R.pagePadding(context),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // ── Captured Image ────────────────────────────────
+              SizedBox(height: sp),
+              // ── Captured Image
               Container(
-                height: 280,
+                height: R.h(context, 30),
                 width: double.infinity,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
@@ -84,10 +90,9 @@ class _ClassificationResultScreenState
                   child: Image.file(widget.imageFile, fit: BoxFit.cover),
                 ),
               ),
+              SizedBox(height: sp * 2),
 
-              const SizedBox(height: 32),
-
-              // ── Loading ───────────────────────────────────────
+              // Loading
               if (_isAnalyzing) ...[
                 const CircularProgressIndicator(color: Color(0xFF2196F3)),
                 const SizedBox(height: 16),
@@ -100,14 +105,16 @@ class _ClassificationResultScreenState
 
               // ── Error ─────────────────────────────────────────
               else if (_errorMessage != null) ...[
-                const Icon(Icons.error_outline, color: Colors.red, size: 48),
-                const SizedBox(height: 12),
+                Icon(Icons.error_outline,
+                    color: Colors.red, size: R.icon(context, 48)),
+                SizedBox(height: sp * 0.75),
                 Text(
                   _errorMessage!,
                   textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 14, color: Colors.red),
+                  style: TextStyle(
+                      fontSize: R.fs(context, 14), color: Colors.red),
                 ),
-                const SizedBox(height: 24),
+                SizedBox(height: sp * 1.5),
                 OutlinedButton.icon(
                   onPressed: () {
                     setState(() {
@@ -117,7 +124,8 @@ class _ClassificationResultScreenState
                     _runClassification();
                   },
                   icon: const Icon(Icons.refresh),
-                  label: const Text("Retry"),
+                  label: Text("Retry",
+                      style: TextStyle(fontSize: R.fs(context, 14))),
                   style: OutlinedButton.styleFrom(
                     foregroundColor: const Color(0xFF2196F3),
                     side: const BorderSide(color: Color(0xFF2196F3)),
